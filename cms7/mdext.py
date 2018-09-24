@@ -74,7 +74,7 @@ class CMS7TreeProcessor(Treeprocessor):
             self.process_hyphens(root)
 
         for i in range(len(self.markdown.htmlStash.rawHtmlBlocks)):
-            html, safe = self.markdown.htmlStash.rawHtmlBlocks[i]
+            html = self.markdown.htmlStash.rawHtmlBlocks[i]
             tree = html5lib.parse(html, namespaceHTMLElements=False)
             self.process_links(tree)
             if self.hyphens:
@@ -83,7 +83,7 @@ class CMS7TreeProcessor(Treeprocessor):
             html = xml.etree.ElementTree.tostring(body, method='html', encoding='unicode')
             assert html.startswith(S) and html.endswith(E)
             html = html[len(S):-len(E)]
-            self.markdown.htmlStash.rawHtmlBlocks[i] = html, safe
+            self.markdown.htmlStash.rawHtmlBlocks[i] = html
 
         if self.paragraphs is not None:
             children = list(root)
